@@ -1,0 +1,43 @@
+POST http://localhost:3000/api/properties
+Content-Type: application/json
+
+{
+    "title": "New Property",
+    "slug": "new_property",
+    "rooms": ["SM", "M", "L"],
+    "gender": "men",
+    "tags": ["nuevo", "tag"]
+}
+
+################################################################
+
+GET http://localhost:3000/api/properties
+
+################################################################
+
+GET http://localhost:3000/api/properties?offset=0&limit=5
+
+################################################################
+
+GET http://localhost:3000/api/properties?offset=0&limit=10
+
+################################################################
+
+GET http://localhost:3000/api/properties/9921f67a-0c19-41bd-a1f1-1405f5b79cd7
+
+################################################################
+
+GET http://localhost:3000/api/properties/new_property
+
+################################################################
+
+GET http://localhost:3000/api/properties/New%20Property
+
+################################################################
+
+PATCH http://localhost:3000/api/properties/9921f67a-0c19-41bd-a1f1-1405f5b79cd7
+Content-Type: application/json
+
+{
+    "tags": ["material", "actualizado"]
+}
