@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable } from '@nestjs/common';
 import { PropertiesService } from '../properties/properties.service'
 import { initialData } from './data/seed-data'
-import { UsersService } from 'src/auth/users.service'
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class SeedService {

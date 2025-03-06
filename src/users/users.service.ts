@@ -1,11 +1,11 @@
 import { BadRequestException, Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
 import { PostgreSQLErrorCodes } from 'src/commons/enums/db-error-codes.enum';
 import { isUUID } from 'class-validator';
 import { User } from './entities';
+import { InjectRepository } from '@nestjs/typeorm';
 
 
 
@@ -38,6 +38,19 @@ export class UsersService {
     if( !user )
       throw new NotFoundException(`There are no results for the search. Search uid: ${ uid }`);
   
+    return user;
+  }
+
+  async findByEmail(email: string) {
+    let user: User;
+    
+    if(email.length > 0){
+      user = await this._userRepository.findOneBy({ email });
+    }
+    if(email.length === 0)
+      throw new NotFoundException(`There are no results for the search. Search uid: ${ email }`);
+
+
     return user;
   }
 

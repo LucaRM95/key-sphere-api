@@ -1,6 +1,6 @@
 import { BeforeInsert, BeforeUpdate, Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { PropertyImage } from './property-image.entity';
-import { User } from "src/auth/entities";
+import { User } from "src/users/entities";
 
 
 @Entity( { name: 'products' } )
