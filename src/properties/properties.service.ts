@@ -8,6 +8,7 @@ import { PostgreSQLErrorCodes } from '../commons/enums/db-error-codes.enum'
 import { CreatePropertyDto } from './dto/create-property.dto'
 import { UpdatePropertyDto } from './dto/update-property.dto'
 import { Property, PropertyImage } from './entities'
+import { User } from 'src/users/entities'
 
 @Injectable()
 export class PropertiesService {
@@ -15,23 +16,26 @@ export class PropertiesService {
 
     constructor (
         @InjectRepository( Property ) private readonly _propertyRepository: Repository<Property>,
+        @InjectRepository( User ) private readonly _userRepository: Repository<User>,
         @InjectRepository( PropertyImage ) private readonly _propertyImageRepository: Repository<PropertyImage>,
         private readonly _dataSource: DataSource
     ) { }
 
     async create ( createPropertyDto: CreatePropertyDto ) {
         try {
-            const { images = [], ...propertyDetails } = createPropertyDto
+            const { ownerId, images = [], ...propertyDetails } = createPropertyDto
 
+            const owner = await this._userRepository.findOneBy({ id: ownerId });
             const property = this._propertyRepository.create( {
                 ...propertyDetails,
-                images: images.map( url => this._propertyImageRepository.create( { url } ) )
+                images: images.map( url => this._propertyImageRepository.create( { url } ) ),
+                owner
             } )
 
             await this._propertyRepository.save( property )
-            return { ...property, images }
+            return { status: 200, message: "Property created successfully!" }
         } catch ( error ) {
-            this._handleDBException( error )
+            return {status: 400, message: this._handleDBException( error )}
         }
     }
 
@@ -132,7 +136,7 @@ export class PropertiesService {
         throw new InternalServerErrorException( "Unexpected error, check server logs" )
     }
 
-    async deleteAllProducts () {
+    async deleteAllProperties () {
         const query = this._propertyRepository.createQueryBuilder( 'product' )
 
         try {

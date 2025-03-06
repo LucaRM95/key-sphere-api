@@ -1,4 +1,4 @@
-import { IsArray, IsBoolean, IsIn, IsInt, IsNumber, IsOptional, IsPositive, IsString, MinLength } from 'class-validator'
+import { IsArray, IsBoolean, IsIn, IsInt, IsNumber, IsOptional, IsPositive, IsString, IsUUID, MinLength } from 'class-validator'
 
 export class CreatePropertyDto {
     @IsString()
@@ -47,4 +47,7 @@ export class CreatePropertyDto {
     @IsBoolean()
     @IsOptional()
     status?: boolean
+
+    @IsUUID()
+    ownerId: string
 }

@@ -10,9 +10,10 @@ import { AuthModule } from './auth/auth.module';
 
 @Module( {
     imports: [
+        AuthModule,
         ConfigModule.forRoot( {
             validationSchema: JoiValidationSchema,
-            
+            isGlobal: true
         } ),
         
         TypeOrmModule.forRoot( {
@@ -34,9 +35,6 @@ import { AuthModule } from './auth/auth.module';
 
         UsersModule,
 
-        AuthModule,
-
-        AuthModule
     ],
 } )
 export class AppModule { }

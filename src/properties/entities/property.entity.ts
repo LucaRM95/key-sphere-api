@@ -3,7 +3,7 @@ import { PropertyImage } from './property-image.entity';
 import { User } from "src/users/entities";
 
 
-@Entity( { name: 'products' } )
+@Entity( { name: 'properties' } )
 export class Property {
     @PrimaryGeneratedColumn( 'uuid' )
     id: string

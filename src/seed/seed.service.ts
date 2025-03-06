@@ -1,50 +1,51 @@
 import { Injectable } from '@nestjs/common';
-import { PropertiesService } from '../properties/properties.service'
-import { initialData } from './data/seed-data'
+import { PropertiesService } from '../properties/properties.service';
+import { initialData } from './data/seed-data';
 import { UsersService } from 'src/users/users.service';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class SeedService {
-    constructor ( 
-        private readonly _propertiesService: PropertiesService,
-        private readonly _userService: UsersService 
-    ) { }
+  private users = [];
 
-    async runSeed () {
-        await this._insertNewProperties();
-        await this._insertNewUsers();
-        return 'Seed Executed';
-    }
+  constructor(
+    private readonly _propertiesService: PropertiesService,
+    private readonly _userService: UsersService,
+  ) {}
 
-    private async _insertNewProperties () {
-        await this._propertiesService.deleteAllProducts()
+  async runSeed() {
+    await this._insertNewUsers();
+    await this._insertNewProperties();
+    return { status: 200, message: 'Seed Executed' };
+  }
 
-        const seedProperties = initialData.properties
+  private async _insertNewUsers() {
+    await this._propertiesService.deleteAllProperties();
+    await this._userService.deleteAllUsers();
 
-        const insertPromises = []
+    const seedUsers = initialData.users;
 
-        seedProperties.forEach( property => {
-            insertPromises.push( this._propertiesService.create( property ) )
-        } )
+    const insertPromises = seedUsers.map(async (user) => {
+      const hashedPass = await bcrypt.hash(user.password, 10);
+      return this._userService.create({ ...user, password: hashedPass });
+    });
 
-        await Promise.all( insertPromises )
+    this.users = await Promise.all(insertPromises);
 
-        return
-    }
+    return;
+  }
 
-    private async _insertNewUsers () {
-        await this._userService.deleteAllUsers();
+  private async _insertNewProperties() {
+    const seedProperties = initialData.properties;
+    const insertPromises = seedProperties.map((property) =>
+      this._propertiesService.create({
+        ...property,
+        ownerId: this.users[0].id,
+      }),
+    );
 
-        const seedUsers = initialData.users;
+    await Promise.all(insertPromises);
 
-        const instertPromises = [];
-
-        seedUsers.forEach( user => {
-            instertPromises.push( this._userService.create(user) );
-        });
-
-        await Promise.all( instertPromises );
-
-        return
-    }
+    return;
+  }
 }

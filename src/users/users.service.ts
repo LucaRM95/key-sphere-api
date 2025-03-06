@@ -45,7 +45,7 @@ export class UsersService {
     let user: User;
     
     if(email.length > 0){
-      user = await this._userRepository.findOneBy({ email });
+      user = await this._userRepository.findOne({ where: { email }, relations: ['properties'] });
     }
     if(email.length === 0)
       throw new NotFoundException(`There are no results for the search. Search uid: ${ email }`);

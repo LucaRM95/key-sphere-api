@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { Property } from './property.entity'
 
-@Entity( { name: 'product_images' } )
+@Entity( { name: 'property_images' } )
 export class PropertyImage {
     @PrimaryGeneratedColumn( 'rowid' )
     id: number
