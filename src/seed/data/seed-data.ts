@@ -3,6 +3,7 @@ interface SeedUser {
   lastName: string
   email: string
   password: string
+  role: string
   phone: number
   cellPhone: number
 }
@@ -37,6 +38,7 @@ export const initialData: SeedData = {
       lastName: "Rojas",
       email: "lucas.rojas@mail.com",
       password: "password123",
+      role:"USER",
       phone: 1134567890,
       cellPhone: 1165432100
     },
@@ -45,6 +47,7 @@ export const initialData: SeedData = {
       lastName: "Forbes",
       email: "caroline.forbes@mail.com",
       password: "mysticfalls",
+      role:"USER",
       phone: 1147894561,
       cellPhone: 1187654321
     },
@@ -53,6 +56,7 @@ export const initialData: SeedData = {
       lastName: "Salvatore",
       email: "damon.salvatore@mail.com",
       password: "bloodlover",
+      role:"USER",
       phone: 1123459876,
       cellPhone: 1199988776
     }

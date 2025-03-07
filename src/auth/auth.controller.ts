@@ -14,6 +14,27 @@ export class AuthController {
     return this.authService.login(email, password);
   }
 
+  @Post('signup')
+  signup(
+    @Body('name') name: string,
+    @Body('lastName') lastName: string,
+    @Body('email') email: string,
+    @Body('phone') phone: number,
+    @Body('role') role: string,
+    @Body('password') password: string,
+    @Body('confirmPassword') confirmPassword: string
+  ) {
+    return this.authService.signup(
+      name,
+      lastName,
+      email,
+      phone,
+      role,
+      password,
+      confirmPassword
+    );
+  }
+
   @Get("me")
   @UseGuards(AuthGuard("jwt"))
   me(@Request() req){

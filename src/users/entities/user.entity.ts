@@ -18,6 +18,9 @@ export class User {
     email: string
 
     @Column('text')
+    role: string
+
+    @Column('text')
     password: string
 
     @Column('int', {

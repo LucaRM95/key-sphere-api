@@ -15,6 +15,10 @@ export class CreateUserDto {
     @IsStrongPassword()
     password: string
 
+    @IsString()
+    @IsOptional()
+    role?: string
+
     @IsNumber()
     @IsOptional()
     phone?: number
