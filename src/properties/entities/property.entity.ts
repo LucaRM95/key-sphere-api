@@ -1,6 +1,7 @@
 import { BeforeInsert, BeforeUpdate, Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { PropertyImage } from './property-image.entity';
 import { User } from "src/users/entities";
+import { Favorite } from "src/favorites/entities/favorite.entity";
 
 
 @Entity( { name: 'properties' } )
@@ -71,6 +72,9 @@ export class Property {
         }
     )
     images?: PropertyImage[]
+
+    @OneToMany(() => Favorite, (favorite) => favorite.property)
+    favorites: Favorite[];
 
     @ManyToOne(
         () => User,

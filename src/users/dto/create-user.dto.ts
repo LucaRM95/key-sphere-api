@@ -1,4 +1,4 @@
-import { IsEmail, IsNumber, IsOptional, IsString, IsStrongPassword, MinLength } from 'class-validator'
+import { IsEmail, IsNumber, IsOptional, IsString, IsStrongPassword, IsUUID, MinLength } from 'class-validator'
 
 export class CreateUserDto {
     @IsString()
@@ -26,4 +26,8 @@ export class CreateUserDto {
     @IsNumber()
     @IsOptional()
     celPhone?: number
+
+    @IsUUID()
+    @IsOptional()
+    favorites?: string
 }

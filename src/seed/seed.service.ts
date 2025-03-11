@@ -37,10 +37,11 @@ export class SeedService {
 
   private async _insertNewProperties() {
     const seedProperties = initialData.properties;
+
     const insertPromises = seedProperties.map((property) =>
       this._propertiesService.create({
         ...property,
-        ownerId: this.users[0].id,
+        ownerId: this.users[Math.floor(Math.random() * 3)].id,
       }),
     );
 

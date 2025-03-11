@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UsersService } from '../users/users.service';
@@ -17,6 +17,15 @@ export class AuthService {
       return result;
     }
     return null;
+  }
+
+  async me(email: string){
+    const user = this.usersService.findByEmail(email);
+
+    if(!user)
+      throw new NotFoundException({ status: 200, message: 'There\'s not user found.' });
+    
+    return user;
   }
 
   async login(email: string, password: string) {

@@ -1,5 +1,6 @@
+import { Favorite } from "src/favorites/entities/favorite.entity";
 import { Property } from "src/properties/entities";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({ name: 'users' })
 export class User {
@@ -38,4 +39,8 @@ export class User {
         (property) => property.owner
     )
     properties: Property[];
+
+    @OneToMany(() => Favorite, (favorite) => favorite.user)
+    favorites: Favorite[];
+
 }

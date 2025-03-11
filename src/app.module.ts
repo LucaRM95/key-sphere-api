@@ -7,6 +7,7 @@ import { CommonsModule } from './commons/commons.module'
 import { SeedModule } from './seed/seed.module';
 import { UsersModule } from './users/users.module'
 import { AuthModule } from './auth/auth.module';
+import { FavoritesModule } from './favorites/favorites.module';
 
 @Module( {
     imports: [
@@ -34,6 +35,8 @@ import { AuthModule } from './auth/auth.module';
         SeedModule,
 
         UsersModule,
+
+        FavoritesModule,
 
     ],
 } )
