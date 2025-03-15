@@ -26,8 +26,4 @@ export class CreateUserDto {
     @IsNumber()
     @IsOptional()
     celPhone?: number
-
-    @IsUUID()
-    @IsOptional()
-    favorites?: string
 }

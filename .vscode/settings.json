@@ -1,0 +1,9 @@
+{
+    "terminal.integrated.profiles.linux": {
+        "konsole": {
+            "path": "/usr/bin/konsole"
+        }
+    },
+    "terminal.integrated.defaultProfile.linux": "konsole"
+
+}
